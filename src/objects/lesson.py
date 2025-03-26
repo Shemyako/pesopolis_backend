@@ -4,7 +4,7 @@ from typing import Any, Dict, List
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from db import Lesson as LessonTable
+from src.db import Lesson as LessonTable
 
 from .abstract_object import AbstrackPesopolisObject
 
@@ -13,6 +13,7 @@ class LessonModel(BaseModel):
     id: int | None = None
     is_group: bool = False
     date: datetime
+    dog_id: int
 
 
 class Lesson(AbstrackPesopolisObject):

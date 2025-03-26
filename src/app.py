@@ -4,16 +4,17 @@ import traceback
 from fastapi import FastAPI, Request
 from fastapi.responses import ORJSONResponse
 
-from config import MODULE_NAME
-from db import Base, engine
-from exceptions import PesopolistException
-from log import logger
-from routes import object_router
+from .config import MODULE_NAME
+from .db import Base, engine
+from .exceptions import PesopolistException
+from .log import logger
+from .routes import object_router, report_router
 
 
 def create_application() -> FastAPI:
     application = FastAPI()
     application.include_router(object_router, prefix=f"/{MODULE_NAME}")
+    application.include_router(report_router, prefix=f"/{MODULE_NAME}")
 
     return application
 
@@ -42,6 +43,6 @@ async def main(app: FastAPI):
         return response
 
 
-if __name__ == "app":
+if __name__ == "src.app":
     app = create_application()
     asyncio.run(main(app))

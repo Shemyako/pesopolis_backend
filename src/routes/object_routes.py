@@ -1,13 +1,13 @@
 from typing import List
-import orjson
 
+import orjson
 from fastapi import APIRouter, Depends, Header
 from fastapi.responses import ORJSONResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from db import get_session
-from factories import BaseFactory
-from objects import AbstrackPesopolisObject
+from src.db import get_session
+from src.factories import BaseFactory
+from src.objects import AbstrackPesopolisObject
 
 object_router = APIRouter()
 

@@ -6,8 +6,8 @@ from sqlalchemy import delete, insert, select
 from sqlalchemy import update as _update
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from db.models import AbstractTable
-from exceptions import PesopolistException
+from src.db.models import AbstractTable
+from src.exceptions import PesopolistException
 
 
 class AbstrackPesopolisObject(ABC):

@@ -2,7 +2,8 @@ from os import environ as env
 
 from dotenv import load_dotenv
 
-load_dotenv(".env")
+load_dotenv("/app/src/.env")
+load_dotenv("src/.env")
 
 HOST = env.get("HOST") or "0.0.0.0"
 PORT = env.get("PORT") or 80

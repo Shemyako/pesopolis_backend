@@ -3,7 +3,7 @@ from typing import Annotated, Any, Dict, List
 from pydantic import BaseModel, StringConstraints
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from db import Dog as DogTable
+from src.db import Dog as DogTable
 
 from .abstract_object import AbstrackPesopolisObject
 

@@ -1,6 +1,6 @@
 import logging
 
-from config import LOG_LEVEL
+from src.config import LOG_LEVEL
 
 log_levels = {
     "debug": logging.DEBUG,

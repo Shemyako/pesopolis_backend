@@ -3,7 +3,7 @@ from typing import Annotated, Any, Dict, List
 from pydantic import BaseModel, StringConstraints
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from db import Administrator as AdministratorTable
+from src.db import Administrator as AdministratorTable
 
 from .abstract_object import AbstrackPesopolisObject
 

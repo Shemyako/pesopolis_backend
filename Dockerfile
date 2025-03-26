@@ -8,12 +8,11 @@ ENV SUMO_HOME=/usr/share/sumo
 
 RUN apt update && apt install -y git g++ gcc && apt install -y sumo
 
-COPY requirements.txt /app/requirements.txt
-RUN pip3 install -r /app/requirements.txt
+COPY requirements.txt src/requirements.txt
+RUN pip3 install -r src/requirements.txt
 
 COPY entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-RUN apt-get update && apt-get install nano
-COPY /src /app
+COPY . .
 ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]

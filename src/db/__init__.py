@@ -7,5 +7,6 @@ from .models import (
     Dog,
     Lesson,
     StaffStatus,
-    Staff
+    Staff,
+    LessonStaff,
 )

@@ -1,4 +1,13 @@
-from objects import Administrator, Course, Customer, Dog, Lesson, Staff, StaffStatus
+from src.objects import (
+    Administrator,
+    Course,
+    Customer,
+    Dog,
+    Lesson,
+    LessonStaff,
+    Staff,
+    StaffStatus,
+)
 
 
 class BaseFactory:
@@ -8,8 +17,9 @@ class BaseFactory:
         "customers": Customer,
         "dogs": Dog,
         "lessons": Lesson,
-        "staff_statuses": StaffStatus,
+        "lesson_staff": LessonStaff,
         "staffs": Staff,
+        "staff_statuses": StaffStatus,
     }
 
     @classmethod

@@ -6,3 +6,4 @@ from .dogs import Dog
 from .lesson import Lesson
 from .staff_status import StaffStatus
 from .staff import Staff
+from .lesson_staff import LessonStaff

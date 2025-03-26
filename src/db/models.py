@@ -4,7 +4,7 @@ from sqlalchemy import ForeignKey, String
 from sqlalchemy.dialects.postgresql import MONEY
 from sqlalchemy.orm import Mapped, mapped_column
 
-from config import IS_TEST
+from src.config import IS_TEST
 
 from .database import Base
 
@@ -92,3 +92,12 @@ class Lesson(AbstractTable):
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True, comment='id занятия')
     is_group: Mapped[bool] = mapped_column(default=False, comment='Является ли занятие групповым')
     date: Mapped[datetime] = mapped_column(comment='Дата и время проведения занятия')
+    dog_id: Mapped[int] = mapped_column(ForeignKey("dogs.id", ondelete='SET NULL'), comment='id собаки')
+
+
+class LessonStaff(AbstractTable):
+    __tablename__ = "lessons_staff"
+
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True, comment='id связи занятия с сотрудником')
+    staff_id: Mapped[int] = mapped_column(ForeignKey("staffs.id", ondelete='SET NULL'), comment='id сотрудника')
+    lesson_id: Mapped[int] = mapped_column(ForeignKey("lessons.id", ondelete='SET NULL'), comment='id занятия')
