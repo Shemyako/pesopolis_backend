@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List
+from typing import Any
 
 from pydantic import BaseModel
 from sqlalchemy import delete, insert, select
@@ -19,9 +19,9 @@ class AbstrackPesopolisObject(ABC):
     async def create(
         cls,
         session: AsyncSession,
-        data: Dict[str, Any],
+        data: dict[str, Any],
         from_other_object: bool = False,
-    ) -> Dict[str, int]:
+    ) -> dict[str, int]:
         model_data = cls._model_class.model_validate(data)
         del data
 
@@ -43,9 +43,9 @@ class AbstrackPesopolisObject(ABC):
     async def create_many(
         cls,
         session: AsyncSession,
-        data: List[Dict[str, Any]],
+        data: list[dict[str, Any]],
         from_other_object: bool = False,
-    ) -> Dict[str, List[int]]:
+    ) -> dict[str, list[int]]:
         created_ids = []
         for elem in data:
             created_ids.append((await cls.create(session, elem, True))["created_id"])
@@ -57,19 +57,15 @@ class AbstrackPesopolisObject(ABC):
 
     @classmethod
     @abstractmethod
-    async def get(
-        cls, session: AsyncSession, data: Dict[str, Any] | None
-    ) -> List[Dict[str, Any]]:
+    async def get(cls, session: AsyncSession, data: dict[str, Any] | None) -> list[dict[str, Any]]:
         pass
 
     @classmethod
     async def get_one(
-        cls, session: AsyncSession, object_id: int, data: Dict[str, Any] | None
-    ) -> Dict[str, Any]:
+        cls, session: AsyncSession, object_id: int, data: dict[str, Any] | None
+    ) -> dict[str, Any]:
         answer = (
-            await session.execute(
-                select(cls._table_class).where(cls._table_class.id == object_id)
-            )
+            await session.execute(select(cls._table_class).where(cls._table_class.id == object_id))
         ).scalar()
 
         if not answer:
@@ -83,13 +79,11 @@ class AbstrackPesopolisObject(ABC):
         cls,
         session: AsyncSession,
         object_id: int,
-        data: Dict[str, Any],
+        data: dict[str, Any],
         from_other_object: bool = False,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         await session.execute(
-            _update(cls._table_class)
-            .values(**data)
-            .where(cls._table_class.id == object_id)
+            _update(cls._table_class).values(**data).where(cls._table_class.id == object_id)
         )
 
         if not from_other_object:
@@ -102,9 +96,9 @@ class AbstrackPesopolisObject(ABC):
     async def update_many(
         cls,
         session: AsyncSession,
-        data: List[Dict[str, Any]],
+        data: list[dict[str, Any]],
         from_other_object: bool = False,
-    ) -> Dict[str, List[int]]:
+    ) -> dict[str, list[int]]:
         updated_ids = []
         for elem in data:
             updated_ids.append(
@@ -120,10 +114,8 @@ class AbstrackPesopolisObject(ABC):
     @abstractmethod
     async def delete(
         cls, session: AsyncSession, object_id: int, from_other_object: bool = False
-    ) -> Dict[str, Any]:
-        await session.execute(
-            delete(cls._table_class).where(cls._table_class.id == object_id)
-        )
+    ) -> dict[str, Any]:
+        await session.execute(delete(cls._table_class).where(cls._table_class.id == object_id))
 
         if not from_other_object:
             await session.commit()
@@ -135,9 +127,9 @@ class AbstrackPesopolisObject(ABC):
     async def delete_many(
         cls,
         session: AsyncSession,
-        object_ids: List[int],
+        object_ids: list[int],
         from_other_object: bool = False,
-    ) -> Dict[str, List[int]]:
+    ) -> dict[str, list[int]]:
         updated_ids = []
         for elem_id in object_ids:
             updated_ids.append((await cls.delete(session, elem_id, True))["deleted_id"])

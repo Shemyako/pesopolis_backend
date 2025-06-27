@@ -1,4 +1,4 @@
-from .database import get_session, engine, Base
+from .database import Base, engine, get_session
 from .models import (
     AbstractTable,
     Administrator,
@@ -6,7 +6,8 @@ from .models import (
     Customer,
     Dog,
     Lesson,
-    StaffStatus,
-    Staff,
+    LessonDog,
     LessonStaff,
+    Staff,
+    StaffStatus,
 )

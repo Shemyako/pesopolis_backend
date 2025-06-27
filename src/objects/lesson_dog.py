@@ -1,25 +1,23 @@
-from typing import Annotated, Any
+from datetime import datetime
+from typing import Any
 
-from pydantic import BaseModel, StringConstraints
+from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.db import Dog as DogTable
+from src.db import LessonDog as LessonDogTable
 
 from .abstract_object import AbstrackPesopolisObject
 
 
-class DogModel(BaseModel):
+class LessonDogModel(BaseModel):
     id: int | None = None
-    name: Annotated[str, StringConstraints(max_length=255)]
-    breed: Annotated[str, StringConstraints(max_length=255)]
-    owner: int
-    is_big: bool = True
-    is_active: bool = True
+    dog_id: int
+    lesson_id: int
 
 
-class Dog(AbstrackPesopolisObject):
-    _table_class = DogTable
-    _model_class = DogModel
+class LessonDog(AbstrackPesopolisObject):
+    _table_class = LessonDogTable
+    _model_class = LessonDogModel
 
     @classmethod
     async def create(
@@ -57,6 +55,8 @@ class Dog(AbstrackPesopolisObject):
         data: dict[str, Any],
         from_other_object: bool = False,
     ) -> dict[str, Any]:
+        if "date" in data:
+            data["date"] = datetime.fromisoformat(data["date"])
         return await super().update(session, object_id, data, from_other_object)
 
     @classmethod
